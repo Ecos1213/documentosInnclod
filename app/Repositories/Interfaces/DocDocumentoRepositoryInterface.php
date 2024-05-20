@@ -11,4 +11,5 @@ interface DocDocumentoRepositoryInterface extends DocumentoInterface
     public function getById($id): DocDocumento | ModelNotFoundException;
     public function create(array $attributes): DocDocumento;
     public function update($id, array $attributes): DocDocumento | ModelNotFoundException;
+    public function loadDoc($documento): DocDocumento;
 }

@@ -53,4 +53,8 @@ class DocDocumentoRepository implements DocDocumentoRepositoryInterface
         DocDocumento::destroy($id);
     }
 
+    public function loadDoc($documento): DocDocumento {
+        return $documento->load('proproceso', 'tiptipodoc');
+    }
+
 }

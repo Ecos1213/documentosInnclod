@@ -33,4 +33,8 @@ class DocDocumentoService
     public function deleteDocumento($id) {
         return $this->docDocumentoRepository->delete($id);
     }
+
+    public function loadDocumento($documento) {
+        return $this->docDocumentoRepository->loadDoc($documento);
+    }
 }

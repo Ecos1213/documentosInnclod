@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, usePage, router, useForm } from '@inertiajs/react';
+import { Head, usePage, router, useForm, Link } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 
 //Button new documento
@@ -28,7 +28,6 @@ export default function Dashboard({ auth }) {
     const [docs, setDocs] = useState(documentos.data);
     // const initialSearch = new URLSearchParams(window.location.search).get('q') || '';
     // const [search, setSearch] = useState(initialSearch);
-    console.log(documentos);
 
     const { data, setData, get, reset } = useForm({
         q: usePage().props.filters?.q || ''  // Obtener el valor inicial del filtro desde las props con userPage
@@ -87,16 +86,16 @@ export default function Dashboard({ auth }) {
                                 <BodyTable>
                                     {
                                         docs.length > 0 ?
-                                            docs.map( data => {
+                                        docs.map( docDocumento => {
                                                 return (
-                                                    <BodyRow key={data.id}>
-                                                        <BodyTextBold text={data.doc_nombre} />
-                                                        <BodyText text={data.doc_codigo} />
-                                                        <BodyText text={data.proproceso.pro_nombre} />
-                                                        <BodyText text={data.tiptipodoc.tip_nombre} />
-                                                        <BodyLinkText text={'Ver'} url={'documentos.show'} param={data.id}/>
-                                                        <BodyLinkText text={'Modificar'} url={'documentos.show'} param={data.id}/>
-                                                        <BodyLinkText text={'Borrar'} url={'documentos.show'} param={data.id}/>
+                                                    <BodyRow key={docDocumento.id}>
+                                                        <BodyTextBold text={docDocumento.doc_nombre} />
+                                                        <BodyText text={docDocumento.doc_codigo} />
+                                                        <BodyText text={docDocumento.proproceso.pro_nombre} />
+                                                        <BodyText text={docDocumento.tiptipodoc.tip_nombre} />
+                                                        <BodyLinkText text={'Ver'} url={'documentos.show'} param={docDocumento.id}/>
+                                                        <BodyLinkText text={'Modificar'} url={'documentos.edit'} param={docDocumento.id}/>
+                                                        <BodyLinkText text={'Borrar'} url={'documentos.show'} param={docDocumento.id}/>
                                                     </BodyRow>
                                                 );
                                             }) : <BodyFullCol text={"No se encontró información"} />

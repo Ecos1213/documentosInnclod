@@ -82,23 +82,25 @@ class DocDocumentoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DocDocumento $docDocumento)
+    public function show(DocDocumento $documento)
     {
-        return Inertia::render('Documentos/Show', compact('docDocumento'));
+        $documento = $this->docDocumentoService->loadDocumento($documento);
+        return Inertia::render('Documentos/Show', compact('documento'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DocDocumento $docDocumento)
+    public function edit(DocDocumento $documento)
     {
-        return Inertia::render('Documentos/Edit', compact('docDocumento'));
+        $documento = $this->docDocumentoService->loadDocumento($documento);
+        return Inertia::render('Documentos/Edit', compact('documento'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DocDocumento $docDocumento)
+    public function update(Request $request, DocDocumento $documento)
     {
         $request->validate([
             'doc_nombre' => ['required', 'max:60'],
@@ -109,7 +111,7 @@ class DocDocumentoController extends Controller
             'max:60'   => 'El :attribute tiene capacidad de 60 caracteres'
         ]);
 
-        $this->docDocumentoService->updateDocumento($docDocumento->id, $request->all());
+        $this->docDocumentoService->updateDocumento($documento->id, $request->all());
 
         return redirect()->route('dashboard');
     }
@@ -117,8 +119,8 @@ class DocDocumentoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DocDocumento $docDocumento)
+    public function destroy(DocDocumento $documento)
     {
-        $this->docDocumentoService->deleteDocumento($docDocumento->id);
+        $this->docDocumentoService->deleteDocumento($documento->id);
     }
 }
