@@ -15,7 +15,7 @@ class TipTipoDocService
         $this->tipTipoDocRepository = $tipTipoDocRepository;
     }
 
-    public function getAllTipTipoDocRepository() {
+    public function getAllTipTipoDoc() {
         return $this->tipTipoDocRepository->getAll();
     }
 

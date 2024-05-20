@@ -10,6 +10,11 @@ class ProProceso extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'pro_prefijo',
+        'pro_nombre'
+    ];
+
     public function docdocumentos(): HasMany {
         return $this->hasMany(DocDocumento::class);
     }

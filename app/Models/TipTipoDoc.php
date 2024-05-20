@@ -10,6 +10,11 @@ class TipTipoDoc extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'tip_nombre',
+        'tip_prefijo'
+    ];
+
     public function docdocumentos(): HasMany {
         return $this->hasMany(DocDocumento::class);
     }
