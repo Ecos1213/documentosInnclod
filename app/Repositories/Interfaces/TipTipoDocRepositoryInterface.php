@@ -9,5 +9,5 @@ interface TipTipoDocRepositoryInterface extends DocumentoInterface
 {
     public function getById($id): TipTipoDoc | ModelNotFoundException;
     public function create(array $attributes): TipTipoDoc;
-    public function update($id, array $attributes): TipTipoDoc;
+    public function update($id, array $attributes): TipTipoDoc | ModelNotFoundException;
 }

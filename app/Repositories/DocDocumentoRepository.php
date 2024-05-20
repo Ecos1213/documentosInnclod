@@ -16,8 +16,9 @@ class DocDocumentoRepository implements DocDocumentoRepositoryInterface
         //
     }
 
-    public function getAll() {
-        return DocDocumento::all();
+    public function getAll($docNombre = "") {
+        //return DocDocumento::with(['proproceso', 'tiptipodoc'])->get()->all();
+        return DocDocumento::where('doc_nombre', 'like', "%{$docNombre}%")->with(['proproceso', 'tiptipodoc'])->paginate(10);
     }
 
     public function getById($id): DocDocumento | ModelNotFoundException
@@ -30,9 +31,9 @@ class DocDocumentoRepository implements DocDocumentoRepositoryInterface
         return DocDocumento::create($attributes);
     }
 
-    public function update($id, array $attributes): DocDocumento
+    public function update($id, array $attributes): DocDocumento | ModelNotFoundException
     {
-        $documento = DocDocumento::find($id);
+        $documento = $this->getById($id);
         $documento->update($attributes);
         return $documento;
     }

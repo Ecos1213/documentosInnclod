@@ -30,9 +30,9 @@ class ProProcesoRepository implements ProProcesoRepositoryInterface
         return ProProceso::create($attributes);
     }
 
-    public function update($id, array $attributes): ProProceso
+    public function update($id, array $attributes): ProProceso | ModelNotFoundException
     {
-        $proceso = ProProceso::find($id);
+        $proceso = $this->getById($id);
         $proceso->update($attributes);
         return $proceso;
     }

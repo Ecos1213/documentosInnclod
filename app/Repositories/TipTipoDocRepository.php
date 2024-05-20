@@ -30,9 +30,9 @@ class TipTipoDocRepository implements TipTipoDocRepositoryInterface
         return TipTipoDoc::create($attributes);
     }
 
-    public function update($id, array $attributes): TipTipoDoc
+    public function update($id, array $attributes): TipTipoDoc | ModelNotFoundException
     {
-        $tipTipoDoc = TipTipoDoc::find($id);
+        $tipTipoDoc = $this->getById($id);
         $tipTipoDoc->update($attributes);
         return $tipTipoDoc;
     }

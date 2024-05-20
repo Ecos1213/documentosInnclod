@@ -25,10 +25,10 @@ class DocDocumento extends Model
     ];
 
     public function proproceso(): BelongsTo {
-        return $this->belongsTo(ProProceso::class);
+        return $this->belongsTo(ProProceso::class, 'doc_id_proceso');
     }
 
     public function tiptipodoc(): BelongsTo {
-        return $this->belongsTo(TipTipoDoc::class);
+        return $this->belongsTo(TipTipoDoc::class, 'doc_id_tipo');
     }
 }

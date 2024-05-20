@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage, router } from '@inertiajs/react';
+import { useState } from 'react';
 
 // table component
 import TableGrid from '@/Components/Table/TableGrid';
@@ -11,11 +12,32 @@ import BodyRow from '@/Components/Table/BodyRow';
 import BodyTextBold from '@/Components/Table/BodyTextBold';
 import BodyText from '@/Components/Table/BodyText';
 import BodyLinkText from '@/Components/Table/BodyLinkText';
+import BodyFullCol from '@/Components/Table/BodyFullCol';
 
 //search
 import Search from '@/Components/Search/Search';
 
+
 export default function Dashboard({ auth }) {
+    /*console.log(documentos[0].doc_codigo);
+    console.log(documentos[0].doc_contenido);
+    console.log(documentos[0].doc_id_proceso);
+    console.log(documentos[0].doc_id_tipo);
+    console.log(documentos[0].proproceso.id);
+    console.log(documentos[0].proproceso.pro_prefijo);
+    console.log(documentos[0].proproceso.pro_nombre);
+    console.log(documentos[0].tiptipodoc.id);
+    console.log(documentos[0].tiptipodoc.tip_nombre);
+    console.log(documentos[0].tiptipodoc.tip_prefijo);*/
+
+    const { documentos } = usePage().props;
+    const [docs, setDocs] = useState(documentos.data);
+    console.log(documentos.links);
+
+    const handlePageChange = (page) => {
+        router.get(page);
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -43,62 +65,52 @@ export default function Dashboard({ auth }) {
                                     <Search />
                                 </div>
                             </div>
+
                             <TableGrid>
                                 <HeaderTable>
                                     <HeaderRow>
-                                        <HeaderTitle title={"Product name"} />
-                                        <HeaderTitle title={"Color"} />
-                                        <HeaderTitle title={"Category"} />
-                                        <HeaderTitle title={"Price"} />
+                                        <HeaderTitle title={"Nombre Documento"} />
+                                        <HeaderTitle title={"Codigo Documento"} />
+                                        <HeaderTitle title={"Proceso Nombre"} />
+                                        <HeaderTitle title={"Tipo Documento"} />
                                         <HeaderTitle title={"Accion"} />
                                     </HeaderRow>
                                 </HeaderTable>
 
                                 <BodyTable>
-                                    <BodyRow>
-                                        <BodyTextBold text={'Apple MacBook Pro 17"'} />
-                                        <BodyText text={'Silver'} />
-                                        <BodyText text={'Laptop'} />
-                                        <BodyText text={'$2999'} />
-                                        <BodyLinkText text={'Edit'} url={'register'} />
-                                    </BodyRow>
-                                    <BodyRow>
-                                        <BodyTextBold text={'Microsoft Surface Pro'} />
-                                        <BodyText text={'White'} />
-                                        <BodyText text={'Laptop PC'} />
-                                        <BodyText text={'$1999'} />
-                                        <BodyLinkText text={'Edit'} url={'register'} />
-                                    </BodyRow>
-                                    <BodyRow>
-                                        <BodyTextBold text={'Magic Mouse 2'} />
-                                        <BodyText text={'Black'} />
-                                        <BodyText text={'Accessories'} />
-                                        <BodyText text={'$99'} />
-                                        <BodyLinkText text={'Edit'} url={'register'} />
-                                    </BodyRow>
-                                    <BodyRow>
-                                        <BodyTextBold text={'Apple MacBook Pro 17"'} />
-                                        <BodyText text={'Silver'} />
-                                        <BodyText text={'Laptop'} />
-                                        <BodyText text={'$2999'} />
-                                        <BodyLinkText text={'Edit'} url={'register'} />
-                                    </BodyRow>
-                                    <BodyRow>
-                                        <BodyTextBold text={'Magic Mouse 2'} />
-                                        <BodyText text={'Black'} />
-                                        <BodyText text={'Accessories'} />
-                                        <BodyText text={'$99'} />
-                                        <BodyLinkText text={'Edit'} url={'register'} />
-                                    </BodyRow>
-                                    <BodyRow>
-                                        <BodyTextBold text={'Apple MacBook Pro 17"'} />
-                                        <BodyText text={'Silver'} />
-                                        <BodyText text={'Laptop'} />
-                                        <BodyText text={'$2999'} />
-                                        <BodyLinkText text={'Edit'} url={'register'} />
-                                    </BodyRow>
+                                    {
+                                        docs.length > 0 ?
+                                            docs.map( data => {
+                                                return (
+                                                    <BodyRow key={data.id}>
+                                                        <BodyTextBold text={data.doc_nombre} />
+                                                        <BodyText text={data.doc_codigo} />
+                                                        <BodyText text={data.proproceso.pro_nombre} />
+                                                        <BodyText text={data.tiptipodoc.tip_nombre} />
+                                                        <BodyLinkText text={'Ver'} url={'documentos.show'} param={data.id}/>
+                                                    </BodyRow>
+                                                );
+                                            }) : <BodyFullCol text={"No se encontró información"} />
+                                    }
                                 </BodyTable>
                             </TableGrid>
+                        </div>
+                        <div className="flex p-4 justify-end">
+                            {documentos.links.map((link, index) => (
+                                <button
+                                    aria-current="page"
+                                    className={
+                                        link.active ?
+                                        'flex items-center justify-center px-3 h-8 text-sm font-medium text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 rounded-lg':
+                                        'flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+
+                                    }
+                                    key={index}
+                                    onClick={() => handlePageChange(link.url)}
+                                    disabled={link.active}
+                                    dangerouslySetInnerHTML={{ __html: link.label }}
+                                />
+                            ))}
                         </div>
 
                     </div>
