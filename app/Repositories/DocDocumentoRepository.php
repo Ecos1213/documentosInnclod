@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\DocDocumento;
 use App\Repositories\Interfaces\DocDocumentoRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 
 class DocDocumentoRepository implements DocDocumentoRepositoryInterface
 {
@@ -28,7 +29,17 @@ class DocDocumentoRepository implements DocDocumentoRepositoryInterface
 
     public function create(array $attributes): DocDocumento
     {
-        return DocDocumento::create($attributes);
+        $docDocumento = DB::transaction(function() use ($attributes) {
+            $uniqueNumber = DocDocumento::where('doc_id_proceso', $attributes["doc_id_proceso"])
+                                        ->where('doc_id_tipo', $attributes["doc_id_tipo"])
+                                        ->lockForUpdate()
+                                        ->count() + 1;
+            $attributes["doc_codigo"] = $attributes["doc_codigo"].$uniqueNumber;
+            return DocDocumento::create($attributes);
+        });
+
+        return $docDocumento;
+
     }
 
     public function update($id, array $attributes): DocDocumento | ModelNotFoundException
@@ -41,4 +52,5 @@ class DocDocumentoRepository implements DocDocumentoRepositoryInterface
     public function delete($id) {
         DocDocumento::destroy($id);
     }
+
 }

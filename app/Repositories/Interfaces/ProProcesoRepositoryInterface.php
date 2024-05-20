@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface ProProcesoRepositoryInterface extends DocumentoInterface
 {
+    public function getAll();
     public function getById($id): ProProceso | ModelNotFoundException;
     public function create(array $attributes): ProProceso;
     public function update($id, array $attributes): ProProceso | ModelNotFoundException;

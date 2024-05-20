@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface TipTipoDocRepositoryInterface extends DocumentoInterface
 {
+    public function getAll();
     public function getById($id): TipTipoDoc | ModelNotFoundException;
     public function create(array $attributes): TipTipoDoc;
     public function update($id, array $attributes): TipTipoDoc | ModelNotFoundException;

@@ -14,8 +14,8 @@ class DocDocumentoService
         $this->docDocumentoRepository = $docDocumentoRepository;
     }
 
-    public function getAllDocuments() {
-        return $this->docDocumentoRepository->getAll();
+    public function getAllDocuments($docNombre = "") {
+        return $this->docDocumentoRepository->getAll($docNombre);
     }
 
     public function getDocumentById($id) {

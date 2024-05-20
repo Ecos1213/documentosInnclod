@@ -28,8 +28,8 @@ class DocDocumentoController extends Controller
      */
     public function index(Request $request)
     {
-        $documentos = $this->docDocumentoService->getAllDocuments();
 
+        $documentos = $this->docDocumentoService->getAllDocuments($request->q);
         return Inertia::render('Dashboard', ['documentos' => $documentos]);
     }
 
@@ -49,20 +49,33 @@ class DocDocumentoController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'doc_nombre' => ['required', 'max:60'],
-            'doc_contenido' => ['required','max:4000'],
+            'doc_nombre' => ['required', 'max:60', 'min:3'],
+            'doc_contenido' => ['required','max:4000', 'min:3'],
             'doc_id_proceso' => ['required'],
-            'doc_id_tipo'
+            'doc_id_tipo' => ['required'],
+            'proceso_prefijo' => ['required'],
+            'tiptipodoc_prefijo' => ['required'],
         ], [
-            'required' => 'El :attribute es un campo requerido',
-            'max:4000' => 'El :attribute tiene capacidad de 4000 caracteres',
-            'max:60'   => 'El :attribute tiene capacidad de 60 caracteres'
+            'required' => 'Este es un campo requerido',
+            'max:4000' => 'Este campo tiene capacidad de 4000 caracteres',
+            'max:60'   => 'Este campo tiene capacidad de 60 caracteres',
+            'doc_contenido.min'      => 'Se debe escribir por lo menos 3 caracteres',
+            'doc_nombre.min'      => 'Se debe escribir por lo menos 3 caracteres',
         ]);
 
-        $documento = $this->docDocumentoService->createDocumento($request->all());
+        $array = [
+            'doc_id_tipo' => $request->doc_id_tipo,
+            'doc_id_proceso' => $request->doc_id_proceso,
+            'doc_nombre' => $request->doc_nombre,
+            'doc_codigo' => $request->tiptipodoc_prefijo."-".$request->proceso_prefijo."-",
+            'doc_contenido' => $request->doc_contenido,
+        ];
 
-        return redirect()->route('documento.edit', $documento->id);
+        $documento = $this->docDocumentoService->createDocumento($array);
+
+        return redirect()->route('documentos.edit', $documento->id);
 
     }
 

@@ -1,6 +1,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, usePage, router } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head, usePage, router, useForm } from '@inertiajs/react';
+import { useState, useEffect } from 'react';
+
+//Button new documento
+import NewDocumentButton from '@/Components/NewDocumentButton';
 
 // table component
 import TableGrid from '@/Components/Table/TableGrid';
@@ -13,30 +16,42 @@ import BodyTextBold from '@/Components/Table/BodyTextBold';
 import BodyText from '@/Components/Table/BodyText';
 import BodyLinkText from '@/Components/Table/BodyLinkText';
 import BodyFullCol from '@/Components/Table/BodyFullCol';
+import Pagination from '@/Components/Table/Pagination';
 
 //search
 import Search from '@/Components/Search/Search';
 
 
 export default function Dashboard({ auth }) {
-    /*console.log(documentos[0].doc_codigo);
-    console.log(documentos[0].doc_contenido);
-    console.log(documentos[0].doc_id_proceso);
-    console.log(documentos[0].doc_id_tipo);
-    console.log(documentos[0].proproceso.id);
-    console.log(documentos[0].proproceso.pro_prefijo);
-    console.log(documentos[0].proproceso.pro_nombre);
-    console.log(documentos[0].tiptipodoc.id);
-    console.log(documentos[0].tiptipodoc.tip_nombre);
-    console.log(documentos[0].tiptipodoc.tip_prefijo);*/
 
     const { documentos } = usePage().props;
     const [docs, setDocs] = useState(documentos.data);
-    console.log(documentos.links);
+    // const initialSearch = new URLSearchParams(window.location.search).get('q') || '';
+    // const [search, setSearch] = useState(initialSearch);
+    console.log(documentos);
+
+    const { data, setData, get, reset } = useForm({
+        q: usePage().props.filters?.q || ''  // Obtener el valor inicial del filtro desde las props con userPage
+    });
 
     const handlePageChange = (page) => {
-        router.get(page);
+        get(page, {preserveState:true, preserveScroll:true});
     }
+
+    const handleSearchChange = (e) => {
+        // setSearch(e.target.value);
+        setData(data => ({ ...data, 'q': e.target.value}));
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        //router.get(route('dashboard', {q: search}, {preserveState:true, preserveScroll:true}));
+        get(route('dashboard'), {preserveState:true, preserveScroll:true});
+    }
+
+    useEffect(() => {
+        setDocs(documentos.data);
+    }, [documentos]);
 
     return (
         <AuthenticatedLayout
@@ -48,21 +63,13 @@ export default function Dashboard({ auth }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden shadow-sm sm:rounded-lg">
-
                         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                                 <div>
-                                    <Link href={route("register")}>
-                                        <button type="button" className="text-blue-700 hover:text-white border border-blue-700
-                                                                        hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300
-                                                                        font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500
-                                                                        dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-                                            Crear Documento
-                                        </button>
-                                    </Link>
+                                    <NewDocumentButton text="Nuevo Documento" url="documentos.create"/>
                                 </div>
                                 <div className="bg-white dark:bg-gray-900">
-                                    <Search />
+                                    <Search onChange={handleSearchChange} data={data.q} onSubmit={onSubmit} placeholder={"Busca tus documentos por nombre"}/>
                                 </div>
                             </div>
 
@@ -73,7 +80,7 @@ export default function Dashboard({ auth }) {
                                         <HeaderTitle title={"Codigo Documento"} />
                                         <HeaderTitle title={"Proceso Nombre"} />
                                         <HeaderTitle title={"Tipo Documento"} />
-                                        <HeaderTitle title={"Accion"} />
+                                        <HeaderTitle title={"Accion"} colspan={3}/>
                                     </HeaderRow>
                                 </HeaderTable>
 
@@ -88,6 +95,8 @@ export default function Dashboard({ auth }) {
                                                         <BodyText text={data.proproceso.pro_nombre} />
                                                         <BodyText text={data.tiptipodoc.tip_nombre} />
                                                         <BodyLinkText text={'Ver'} url={'documentos.show'} param={data.id}/>
+                                                        <BodyLinkText text={'Modificar'} url={'documentos.show'} param={data.id}/>
+                                                        <BodyLinkText text={'Borrar'} url={'documentos.show'} param={data.id}/>
                                                     </BodyRow>
                                                 );
                                             }) : <BodyFullCol text={"No se encontró información"} />
@@ -96,23 +105,8 @@ export default function Dashboard({ auth }) {
                             </TableGrid>
                         </div>
                         <div className="flex p-4 justify-end">
-                            {documentos.links.map((link, index) => (
-                                <button
-                                    aria-current="page"
-                                    className={
-                                        link.active ?
-                                        'flex items-center justify-center px-3 h-8 text-sm font-medium text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 rounded-lg':
-                                        'flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
-
-                                    }
-                                    key={index}
-                                    onClick={() => handlePageChange(link.url)}
-                                    disabled={link.active}
-                                    dangerouslySetInnerHTML={{ __html: link.label }}
-                                />
-                            ))}
+                            <Pagination links={documentos.links} handlePageChange={handlePageChange} />
                         </div>
-
                     </div>
                 </div>
             </div>
