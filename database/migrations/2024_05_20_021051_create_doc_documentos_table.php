@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doc_documento', function (Blueprint $table) {
+        Schema::create('doc_documentos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("doc_id_tipo");
             $table->unsignedBigInteger("doc_id_proceso");
 
-            $table->foreign("doc_id_tipo")->references("id")->on("tip_tipo_doc");
-            $table->foreign("doc_id_proceso")->references("id")->on("pro_proceso");
+            $table->foreign("doc_id_tipo")->references("id")->on("tip_tipo_docs");
+            $table->foreign("doc_id_proceso")->references("id")->on("pro_procesos");
 
             $table->string("doc_nombre", 60);
             $table->string("doc_codigo")->unique();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doc_documento');
+        Schema::dropIfExists('doc_documentos');
     }
 };

@@ -20,8 +20,6 @@ class DocDocumento extends Model
 
     protected $guarded = [
         'id',
-        'doc_id_tipo',
-        'doc_id_proceso',
         'created_at',
         'updated_at'
     ];

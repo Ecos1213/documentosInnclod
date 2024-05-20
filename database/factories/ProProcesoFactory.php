@@ -16,8 +16,20 @@ class ProProcesoFactory extends Factory
      */
     public function definition(): array
     {
+        $prefijos = [
+            ['ABG', 'Abogado'],
+            ['ADMR', 'Administrador'],
+            ['ARQ', 'Arquitecto'],
+            ['ANL', 'Analista'],
+            ['COORD', 'Coordinador'],
+            ['ING', 'Ingeniero']
+        ];
+
+        $seleccion = fake()->unique()->randomElement($prefijos);
+
         return [
-            //
+            'pro_prefijo' => $seleccion[0],
+            'pro_nombre'  => $seleccion[1]
         ];
     }
 }
