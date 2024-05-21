@@ -65,7 +65,7 @@ export default function Edit({ auth, proProcesos, tipTipoDoc, documento }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-sm:px-4">
                             <form onSubmit={handleOnSubmit}>
                                 <div>
                                     <InputLabel htmlFor="doc_nombre" value="Nombre del documento" />

@@ -7,6 +7,57 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Requerimientos
+
+El proyecto se realizo en laravel 11 y necesita lo siguiente:
+
+- xampp 8.2.12 
+- php 8.2.12
+- composer 2.5.4
+- nodejs 21.5.0
+- npm 10.2.4
+- mysql
+
+## Repositorio
+- [https://github.com/Ecos1213/documentosInnclod.git](https://github.com/Ecos1213/documentosInnclod.git)
+
+## Instalacion
+
+Clonar o agregar la carpeta documentosInnclod dentro de htdocs de xampp, despues de clonar o extraer el archivo no se encontrara el .env pero tendra el archivo ejemplo .env.example, cambiamos el nombre a .env, dentro de este archivo cambiamos los siguientes datos:
+
+- DB_DATABASE=documentoinnclod
+- DB_USERNAME=username-de-mysql
+- DB_PASSWORD=password-de-mysq
+- APP_LOCALE=es
+
+en mysql podemos importar la base de datos que se encuentra dentro de la carpeta del proyecto documentosInnclod/DB o podemos crear una tabla y/o realizar la migracion con el siguiente comando php artisan migrate --seed, es necesario el flag **seed** para que nos cree en la base de datos la informacion pertinente para el programa.
+
+cuando lanzemos los comandos de php artisan tendra que ser en la ruta de la carpeta documentosInnclod, ademas tendremos que usar el siguiente comando: php artisan key:generate este nos genera una key que se puede observar en el archivo .env en:
+
+- APP_KEY
+
+tenemos que correr los siguintes comandos dentro de la carpeta documentosInnclod:
+- composer install o composer update (instalara o actualizara los paquetes necesarios para el programa)
+- npm install (instalara o actualizara los paquetes necesarios para el programa)
+- npm run build o npm run dev (transpilara los componetes de react a javascript en la carpeta public, el comando dev se tendra que mantenerse en la consola para ver el programa)
+
+por prevencio podemos correr los siguientes comandos:
+
+- php artisan cache:clear
+- php artisan route:cache
+
+para ver nuestro programa tenemos que tener iniciado los servicios de apache y mysql de xampp y lanzar el siguiente comando:
+- php artisan serve (inicia el programa y tambien tendra que mantenerser en consola para ver el programa)
+
+### Nota: 
+tambien podemos encontrara el diagrama de clases dentro de la carpeta del proyecto documentosInnclod/DIAGRAMA DE UML
+
+## Login
+para ver el dashboard primero tendremos que haber lanzado el comando:php artisan migrate --seed y seguir los pasos de instalacion del programa al iniciar el programa nos mostrara la pagina de login, para iniciar se necesita los siguientes datos:
+
+- usuario: test@admin.com
+- password: 1234
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

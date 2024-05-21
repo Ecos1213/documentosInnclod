@@ -78,15 +78,15 @@ export default function Dashboard({ auth }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
-                            <div>
+                        <div className="flex flex-column sm:flex-row max-sm:flex-col flex-wrap sm:space-y-0 items-center justify-between pb-4">
+                            <div className='max-sm:w-full max-sm:p-4'>
                                 <NewDocumentButton text="Nuevo Documento" url="documentos.create"/>
                             </div>
-                            <div className="bg-white dark:bg-gray-900">
+                            <div className="bg-white dark:bg-gray-900 max-sm:w-full max-sm:px-4">
                                 <Search onChange={handleSearchChange} data={data.q} onSubmit={onSubmit} placeholder={"Busca tus documentos por nombre"}/>
                             </div>
                         </div>
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-sm:mx-4">
 
                             <TableGrid>
                                 <HeaderTable>
@@ -122,7 +122,7 @@ export default function Dashboard({ auth }) {
                                 </BodyTable>
                             </TableGrid>
                         </div>
-                        <div className="flex p-4 justify-end">
+                        <div className="flex p-4 sm:justify-end max-sm:justify-center">
                             <Pagination links={documentos.links} handlePageChange={handlePageChange} />
                         </div>
                     </div>
