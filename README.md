@@ -39,7 +39,7 @@ cuando lanzemos los comandos de php artisan tendra que ser en la ruta de la carp
 tenemos que correr los siguintes comandos dentro de la carpeta documentosInnclod:
 - composer install o composer update (instalara o actualizara los paquetes necesarios para el programa)
 - npm install (instalara o actualizara los paquetes necesarios para el programa)
-- npm run build o npm run dev (transpilara los componetes de react a javascript en la carpeta public, el comando dev se tendra que mantenerse en la consola para ver el programa)
+- npm run build o npm run dev, esto srive para transpilar pero ya esta transpilado (Aunque este paso no es necesario pero es por seguridad transpilara los componetes de react a javascript en la carpeta public, el comando npm run dev se tendra que mantenerse en la consola para ver el programa)
 
 por prevencio podemos correr los siguientes comandos:
 

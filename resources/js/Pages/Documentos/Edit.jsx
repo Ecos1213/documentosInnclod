@@ -12,8 +12,6 @@ import TextAreaBox from '@/Components/TextAreaBox';
 
 export default function Edit({ auth, proProcesos, tipTipoDoc, documento }) {
 
-    //console.log(documento);
-
     const {data, setData, put, processing, errors, reset} = useForm({
         doc_nombre: documento.doc_nombre,
         doc_id_proceso: documento.doc_id_proceso,
@@ -43,7 +41,6 @@ export default function Edit({ auth, proProcesos, tipTipoDoc, documento }) {
     }
 
     const handleChangeTipTipoDoc = (e) => {
-        console.log(e.target.value);
         if(e.target.value) {
             setData(data => ({...data, 'doc_id_tipo': e.target.value}));
             let prefix = typeDoc.find((typeDocumentos) => typeDocumentos.id == e.target.value);
@@ -52,7 +49,6 @@ export default function Edit({ auth, proProcesos, tipTipoDoc, documento }) {
             setData(data => ({...data, 'doc_id_tipo': ""}));
             setData(data => ({...data, 'tiptipodoc_prefijo': ""}));
         }
-
     }
 
     return (

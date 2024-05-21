@@ -26,8 +26,6 @@ export default function Dashboard({ auth }) {
 
     const { documentos } = usePage().props;
     const [docs, setDocs] = useState(documentos.data);
-    // const initialSearch = new URLSearchParams(window.location.search).get('q') || '';
-    // const [search, setSearch] = useState(initialSearch);
 
     const { data, setData, get, reset } = useForm({
         q: usePage().props.filters?.q || ''  // Obtener el valor inicial del filtro desde las props con userPage
@@ -40,13 +38,11 @@ export default function Dashboard({ auth }) {
     }
 
     const handleSearchChange = (e) => {
-        // setSearch(e.target.value);
         setData(data => ({ ...data, 'q': e.target.value}));
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
-        //router.get(route('dashboard', {q: search}, {preserveState:true, preserveScroll:true}));
         get(route('dashboard'), {preserveState:true, preserveScroll:true});
     }
 

@@ -41,7 +41,6 @@ export default function Create({ auth, procesos, tipodocumento }) {
     }
 
     const handleChangeTipTipoDoc = (e) => {
-        console.log(e.target.value);
         if(e.target.value) {
             setData(data => ({...data, 'doc_id_tipo': e.target.value}));
             let prefix = typeDoc.find((typeDocumentos) => typeDocumentos.id == e.target.value);
@@ -50,7 +49,6 @@ export default function Create({ auth, procesos, tipodocumento }) {
             setData(data => ({...data, 'doc_id_tipo': ""}));
             setData(data => ({...data, 'tiptipodoc_prefijo': ""}));
         }
-
     }
 
     return (

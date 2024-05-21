@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 
 
 export default function Create({ auth, documento }) {
-    console.log(documento);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -32,7 +31,6 @@ export default function Create({ auth, documento }) {
                             <div className='mt-4 p-4 border-solid border-2 border-indigo-500/50 rounded-lg'>
                                 <h2 className='font-black'>Codigo de documento</h2>
                                 <p className='font-medium text-gray-900 whitespace-nowrap dark:text-white'>{documento.doc_codigo}</p>
-                                {/* <p className='font-medium text-gray-900 dark:text-white'>{`${documento.tiptipodoc.tip_prefijo}-${documento.proproceso.pro_prefijo}-${documento.doc_codigo}`}</p> */}
                             </div>
                             <div className='mt-4 p-4 border-solid border-2 border-indigo-500/50 rounded-lg'>
                                 <h2 className='font-black'>Nombre de proceso documento</h2>
