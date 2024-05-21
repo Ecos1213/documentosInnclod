@@ -30,15 +30,27 @@ export default function Create({ auth, procesos, tipodocumento }) {
     }
 
     const handleChangeIdProceso = (e) => {
-        setData(data => ({...data, 'doc_id_proceso': e.target.value}));
-        let prefix = process.find((procesoDocumentos) => procesoDocumentos.id == e.target.value);
-        setData(data => ({...data, 'proceso_prefijo': prefix.pro_prefijo}));
+        if(e.target.value){
+            setData(data => ({...data, 'doc_id_proceso': e.target.value}));
+            let prefix = process.find((procesoDocumentos) => procesoDocumentos.id == e.target.value);
+            setData(data => ({...data, 'proceso_prefijo': prefix.pro_prefijo}));
+        }else {
+            setData(data => ({...data, 'doc_id_proceso': ""}));
+            setData(data => ({...data, 'proceso_prefijo': ""}));
+        }
     }
 
     const handleChangeTipTipoDoc = (e) => {
-        setData(data => ({...data, 'doc_id_tipo': e.target.value}));
-        let prefix = typeDoc.find((typeDocumentos) => typeDocumentos.id == e.target.value);
-        setData(data => ({...data, 'tiptipodoc_prefijo': prefix.tip_prefijo}));
+        console.log(e.target.value);
+        if(e.target.value) {
+            setData(data => ({...data, 'doc_id_tipo': e.target.value}));
+            let prefix = typeDoc.find((typeDocumentos) => typeDocumentos.id == e.target.value);
+            setData(data => ({...data, 'tiptipodoc_prefijo': prefix.tip_prefijo}));
+        } else {
+            setData(data => ({...data, 'doc_id_tipo': ""}));
+            setData(data => ({...data, 'tiptipodoc_prefijo': ""}));
+        }
+
     }
 
     return (
@@ -78,7 +90,7 @@ export default function Create({ auth, procesos, tipodocumento }) {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         onChange={handleChangeTipTipoDoc}
                                         required >
-                                        <OptionSelect defaultValue>Elige un tipo de documento.</OptionSelect>
+                                        <OptionSelect value="" defaultValue>Elige un tipo de documento.</OptionSelect>
                                         {
                                             typeDoc ? typeDoc.map( data => <OptionSelect key={data.id} value={data.id}>{`${data.tip_nombre} (${data.tip_prefijo})`}</OptionSelect>):
                                             ""
@@ -104,7 +116,7 @@ export default function Create({ auth, procesos, tipodocumento }) {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         onChange={handleChangeIdProceso}
                                         required >
-                                        <OptionSelect defaultValue>Elija un proceso de documento.</OptionSelect>
+                                        <OptionSelect value="" defaultValue>Elija un proceso de documento.</OptionSelect>
                                         {
                                             process ? process.map( data => <OptionSelect key={data.id} value={data.id}>{`${data.pro_nombre} (${data.pro_prefijo})`}</OptionSelect>):
                                             ""
@@ -123,8 +135,7 @@ export default function Create({ auth, procesos, tipodocumento }) {
                                 </div>
                                 <div className='mt-4'>
                                     <InputLabel htmlFor="doc_contenido" value="Contenido del documento" />
-                                    <TextAreaBox onChange={(e) => setData('doc_contenido', e.target.value)} rows="6" id="doc_contenido" name="doc_contenido" maxLength="4000" placeholder="Escribe el contenido del documento....">
-
+                                    <TextAreaBox defaultValue={data.doc_contenido} onChange={(e) => setData('doc_contenido', e.target.value)} rows="6" id="doc_contenido" name="doc_contenido" maxLength="4000" placeholder="Escribe el contenido del documento....">
                                     </TextAreaBox>
                                     <InputError message={errors.doc_contenido} className="mt-2" />
                                 </div>

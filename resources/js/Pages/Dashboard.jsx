@@ -33,6 +33,8 @@ export default function Dashboard({ auth }) {
         q: usePage().props.filters?.q || ''  // Obtener el valor inicial del filtro desde las props con userPage
     });
 
+    const { delete: destroy, processing } = useForm();
+
     const handlePageChange = (page) => {
         get(page, {preserveState:true, preserveScroll:true});
     }
@@ -47,6 +49,20 @@ export default function Dashboard({ auth }) {
         //router.get(route('dashboard', {q: search}, {preserveState:true, preserveScroll:true}));
         get(route('dashboard'), {preserveState:true, preserveScroll:true});
     }
+
+    const destroyDocumento = (id) => {
+        if(confirm('¿Desea Eliminar?')) {
+            destroy(route('documentos.destroy', id), {
+                onSuccess: () => {
+                    alert('Documento eliminado correctamente');
+                },
+                onError: (errors) => {
+                    console.error(errors);
+                },
+                preserveScroll: true,
+            });
+        }
+    };
 
     useEffect(() => {
         setDocs(documentos.data);
@@ -90,12 +106,15 @@ export default function Dashboard({ auth }) {
                                                 return (
                                                     <BodyRow key={docDocumento.id}>
                                                         <BodyTextBold text={docDocumento.doc_nombre} />
-                                                        <BodyText text={docDocumento.doc_codigo} />
+                                                        <BodyText text={`${docDocumento.tiptipodoc.tip_prefijo}-${docDocumento.proproceso.pro_prefijo}-${docDocumento.doc_codigo}`} />
                                                         <BodyText text={docDocumento.proproceso.pro_nombre} />
                                                         <BodyText text={docDocumento.tiptipodoc.tip_nombre} />
                                                         <BodyLinkText text={'Ver'} url={'documentos.show'} param={docDocumento.id}/>
                                                         <BodyLinkText text={'Modificar'} url={'documentos.edit'} param={docDocumento.id}/>
-                                                        <BodyLinkText text={'Borrar'} url={'documentos.show'} param={docDocumento.id}/>
+                                                        <td className="px-6 py-4">
+                                                            <a href="#" onClick={() => destroyDocumento(docDocumento.id)} className="font-medium text-red-600 dark:text-red-500 hover:underline"> Borrar </a>
+                                                        </td>
+
                                                     </BodyRow>
                                                 );
                                             }) : <BodyFullCol text={"No se encontró información"} />

@@ -29,24 +29,73 @@ class DocDocumentoRepository implements DocDocumentoRepositoryInterface
 
     public function create(array $attributes): DocDocumento
     {
-        $docDocumento = DB::transaction(function() use ($attributes) {
-            $uniqueNumber = DocDocumento::where('doc_id_proceso', $attributes["doc_id_proceso"])
-                                        ->where('doc_id_tipo', $attributes["doc_id_tipo"])
-                                        ->lockForUpdate()
-                                        ->count() + 1;
-            $attributes["doc_codigo"] = $attributes["doc_codigo"].$uniqueNumber;
-            return DocDocumento::create($attributes);
-        });
+        // $docDocumento = DB::transaction(function() use ($attributes) {
+        //     $uniqueNumber = DocDocumento::where('doc_id_proceso', $attributes["doc_id_proceso"])
+        //                                 ->where('doc_id_tipo', $attributes["doc_id_tipo"])
+        //                                 ->lockForUpdate()
+        //                                 ->count() + 1;
 
-        return $docDocumento;
+        //     $lastResult = DocDocumento::where('doc_id_proceso', $attributes["doc_id_proceso"])
+        //                                 ->where('doc_id_tipo', $attributes["doc_id_tipo"])->latest()->first();
+
+        //     $textCode = $attributes["doc_codigo"].$uniqueNumber;
+
+        //     if($textCode === $lastResult->doc_codigo) {
+
+        //         $uniqueNumber = intval(implode(explode($attributes["doc_codigo"], $lastResult->doc_codigo))) + 1;
+
+        //         $attributes["doc_codigo"] = $attributes["doc_codigo"].$uniqueNumber;
+        //     }else {
+        //         $attributes["doc_codigo"] = $attributes["doc_codigo"].$uniqueNumber;
+
+        //     }
+
+        //     return DocDocumento::create($attributes);
+        // });
+
+        // return $docDocumento;
+
+        return DocDocumento::create($attributes);
 
     }
 
     public function update($id, array $attributes): DocDocumento | ModelNotFoundException
     {
+
+        // $documentoUpdate = DB::transaction(function() use ($attributes, $id) {
+
+        //     $uniqueNumber = DocDocumento::where('doc_id_proceso', $attributes["doc_id_proceso"])
+        //                                 ->where('doc_id_tipo', $attributes["doc_id_tipo"])
+        //                                 ->lockForUpdate()
+        //                                 ->count() + 1;
+
+        //     $lastResult = DocDocumento::where('doc_id_proceso', $attributes["doc_id_proceso"])
+        //                                 ->where('doc_id_tipo', $attributes["doc_id_tipo"])->latest()->first();
+
+        //     $textCode = $attributes["doc_codigo"].$uniqueNumber;
+
+        //     if($textCode === $lastResult->doc_codigo) {
+
+        //         $uniqueNumber = intval(implode(explode($attributes["doc_codigo"], $lastResult->doc_codigo))) + 1;
+
+        //         $attributes["doc_codigo"] = $attributes["doc_codigo"].$uniqueNumber;
+        //     }else {
+
+        //         $attributes["doc_codigo"] = $attributes["doc_codigo"].$uniqueNumber;
+
+        //     }
+
+        //     $documento = $this->getById($id);
+        //     $documento->update($attributes);
+        //     return $documento;
+        // });
+
+        //return $documentoUpdate;
+
         $documento = $this->getById($id);
         $documento->update($attributes);
         return $documento;
+
     }
 
     public function delete($id) {

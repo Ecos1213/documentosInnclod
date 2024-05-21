@@ -24,6 +24,21 @@ class DocDocumento extends Model
         'updated_at'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $max = static::max('doc_codigo');
+            $model->doc_codigo = $max + 1;
+
+            // Verificar unicidad
+            while (static::where('doc_codigo', $model->doc_codigo)->exists()) {
+                $model->doc_codigo++;
+            }
+        });
+    }
+
     public function proproceso(): BelongsTo {
         return $this->belongsTo(ProProceso::class, 'doc_id_proceso');
     }
