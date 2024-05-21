@@ -59,8 +59,8 @@ class DocDocumentoController extends Controller
             'tiptipodoc_prefijo' => ['required'],
         ], [
             'required' => 'Este es un campo requerido',
-            'max:4000' => 'Este campo tiene capacidad de 4000 caracteres',
-            'max:60'   => 'Este campo tiene capacidad de 60 caracteres',
+            'doc_contenido.max' => 'Este campo tiene capacidad de 4000 caracteres',
+            'doc_nombre.max'   => 'Este campo tiene capacidad de 60 caracteres',
             'doc_contenido.min'      => 'Se debe escribir por lo menos 3 caracteres',
             'doc_nombre.min'      => 'Se debe escribir por lo menos 3 caracteres',
         ]);
@@ -107,8 +107,8 @@ class DocDocumentoController extends Controller
             'doc_contenido' => ['required','max:4000']
         ], [
             'required' => 'El :attribute es un campo requerido',
-            'max:4000' => 'El :attribute tiene capacidad de 4000 caracteres',
-            'max:60'   => 'El :attribute tiene capacidad de 60 caracteres'
+            'doc_contenido.max' => 'El :attribute tiene capacidad de 4000 caracteres',
+            'doc_nombre.max'   => 'El :attribute tiene capacidad de 60 caracteres'
         ]);
 
         $this->docDocumentoService->updateDocumento($documento->id, $request->all());

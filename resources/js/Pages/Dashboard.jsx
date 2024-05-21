@@ -62,15 +62,15 @@ export default function Dashboard({ auth }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
-                                <div>
-                                    <NewDocumentButton text="Nuevo Documento" url="documentos.create"/>
-                                </div>
-                                <div className="bg-white dark:bg-gray-900">
-                                    <Search onChange={handleSearchChange} data={data.q} onSubmit={onSubmit} placeholder={"Busca tus documentos por nombre"}/>
-                                </div>
+                        <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+                            <div>
+                                <NewDocumentButton text="Nuevo Documento" url="documentos.create"/>
                             </div>
+                            <div className="bg-white dark:bg-gray-900">
+                                <Search onChange={handleSearchChange} data={data.q} onSubmit={onSubmit} placeholder={"Busca tus documentos por nombre"}/>
+                            </div>
+                        </div>
+                        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
 
                             <TableGrid>
                                 <HeaderTable>
