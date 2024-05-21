@@ -70,7 +70,7 @@ class DocDocumentoController extends Controller
             'doc_id_tipo' => $request->doc_id_tipo,
             'doc_id_proceso' => $request->doc_id_proceso,
             'doc_nombre' => $request->doc_nombre,
-            //'doc_codigo' => $request->tiptipodoc_prefijo."-".$request->proceso_prefijo."-",
+            'doc_codigo' => $request->tiptipodoc_prefijo."-".$request->proceso_prefijo."-",
             'doc_contenido' => $request->doc_contenido,
         ];
 
@@ -128,7 +128,7 @@ class DocDocumentoController extends Controller
             'doc_id_tipo' => $request->doc_id_tipo,
             'doc_id_proceso' => $request->doc_id_proceso,
             'doc_nombre' => $request->doc_nombre,
-            // 'doc_codigo' => $request->tiptipodoc_prefijo."-".$request->proceso_prefijo."-",
+            'doc_codigo' => $request->tiptipodoc_prefijo."-".$request->proceso_prefijo."-",
             'doc_contenido' => $request->doc_contenido,
         ];
 

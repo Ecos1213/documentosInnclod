@@ -20,8 +20,8 @@ return new class extends Migration
             $table->foreign("doc_id_proceso")->references("id")->on("pro_procesos");
 
             $table->string("doc_nombre", 60);
-            //$table->string("doc_codigo")->unique();
-            $table->unsignedBigInteger("doc_codigo")->default(0)->unique();
+            $table->string("doc_codigo")->unique();
+            // $table->unsignedBigInteger("doc_codigo")->default(0)->unique();
             $table->string("doc_contenido", 4000);
             $table->timestamps();
         });

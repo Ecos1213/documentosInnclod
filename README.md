@@ -50,7 +50,9 @@ para ver nuestro programa tenemos que tener iniciado los servicios de apache y m
 - php artisan serve (inicia el programa y tambien tendra que mantenerser en consola para ver el programa)
 
 ### Nota: 
-tambien podemos encontrara el diagrama de clases dentro de la carpeta del proyecto documentosInnclod/DIAGRAMA DE UML
+- Se puede encontrar el diagrama de clases dentro de la carpeta del proyecto documentosInnclod/DIAGRAMA DE UML
+- Se puede encontrar la base de datos en la carpeta documentosInnclod/DB
+- El buscador, despues de escribir la busqueda hay que darle la tecla enter para realizar la busqueda y si quieres volver a ver todos los documentos se puede dejar en blanco y darle enter de nuevo que retorne todos los documentos
 
 ## Login
 para ver el dashboard primero tendremos que haber lanzado el comando:php artisan migrate --seed y seguir los pasos de instalacion del programa al iniciar el programa nos mostrara la pagina de login, para iniciar se necesita los siguientes datos:

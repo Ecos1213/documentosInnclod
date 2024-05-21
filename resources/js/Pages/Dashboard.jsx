@@ -106,7 +106,8 @@ export default function Dashboard({ auth }) {
                                                 return (
                                                     <BodyRow key={docDocumento.id}>
                                                         <BodyTextBold text={docDocumento.doc_nombre} />
-                                                        <BodyText text={`${docDocumento.tiptipodoc.tip_prefijo}-${docDocumento.proproceso.pro_prefijo}-${docDocumento.doc_codigo}`} />
+                                                        {/* <BodyText text={`${docDocumento.tiptipodoc.tip_prefijo}-${docDocumento.proproceso.pro_prefijo}-${docDocumento.doc_codigo}`} /> */}
+                                                        <BodyText text={`${docDocumento.doc_codigo}`} />
                                                         <BodyText text={docDocumento.proproceso.pro_nombre} />
                                                         <BodyText text={docDocumento.tiptipodoc.tip_nombre} />
                                                         <BodyLinkText text={'Ver'} url={'documentos.show'} param={docDocumento.id}/>
